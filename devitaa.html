@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Devita</title>
+
+<style>
+body{
+    margin:0;
+    min-height:100vh;
+    background: linear-gradient(135deg, #cfefff, #eaf7ff);
+    font-family: Georgia, serif;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    overflow-y:auto;
+    padding:40px 20px;
+}
+
+/* amplop */
+.envelope{
+    width:220px;
+    height:140px;
+    background:#6bb6d9;
+    position:relative;
+    border-radius:10px;
+    cursor:pointer;
+    margin-top:120px;
+    animation: pulse 2s infinite;
+}
+
+.envelope::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    border-left:110px solid transparent;
+    border-right:110px solid transparent;
+    border-bottom:70px solid #4ea3cb;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.05);}
+    100%{transform:scale(1);}
+}
+
+/* surat */
+#letterPage{
+    display:none;
+    max-width:650px;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    text-align:center;
+    opacity:0;
+    transition:1s;
+    margin-top:20px;
+    margin-bottom:40px;
+}
+
+h2{
+    margin-bottom:20px;
+    color:#4ea3cb;
+}
+
+#text{
+    white-space:pre-line;
+    line-height:1.9;
+    font-size:17px;
+    color:#444;
+}
+
+/* tombol */
+button{
+    margin-top:25px;
+    padding:12px 24px;
+    border:none;
+    background:#6bb6d9;
+    color:white;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#4ea3cb;
+}
+
+/* efek */
+.heart, .flower{
+    position:fixed;
+    font-size:22px;
+    animation: floatUp linear infinite;
+    pointer-events:none;
+}
+
+.flower{
+    font-size:20px;
+}
+
+@keyframes floatUp{
+    0%{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+
+    30%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(-10vh);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- amplop -->
+<div class="envelope" onclick="openLetter()"></div>
+
+<!-- surat -->
+<div id="letterPage">
+    <h2>Untuk Devita</h2>
+
+    <p id="text"></p>
+
+    <button id="stayBtn" style="display:none;" onclick="showLove()">
+        selalu sama aku ya
+    </button>
+
+    <p id="response"></p>
+</div>
+
+<script>
+
+// buka amplop
+function openLetter(){
+    document.querySelector(".envelope").style.display="none";
+
+    const letter=document.getElementById("letterPage");
+    letter.style.display="block";
+
+    setTimeout(()=>{
+        letter.style.opacity="1";
+    },100);
+
+    startTyping();
+    showEffects();
+}
+
+// isi surat
+const message = `For Devi(ta)
+
+Gua kadang bingung gimana cara nyampein semuanya, karena rasanya sesimpel “makasih” tuh gak bakal cukup buat ngejelasin betapa berharganya lo buat gua.
+
+Kita kenal dari kelas 11, dan sekarang gak kerasa kita udah lulus SMA aja. Banyak banget hal yang udah kita lewatin bareng, dari yang kocak, random, sedih, bikin ketawa sampe yang berat dan capek banget buat dijalanin sendiri. Dan dari semua itu, lo selalu ada.
+
+Makasih ya, dep, karena udah jadi salah satu orang terdekat yang paling nyaman buat gua. Lo tuh literally jadi “go to person” gua banget. Mau cerita hal penting, hal gak penting, drama, kesel, seneng, galau, bahkan cuma mau ngoceh random, gua selalu kepikiran lo duluan. Rasanya kayak, “udah cerita ke Depita aja nanti.” Dan itu gak semua orang bisa punya.
+
+Gua juga bersyukur banget karena lo selalu stay, no matter what. Di saat mood gua berantakan, di saat gua nyebelin, overthinking, atau bahkan pas gua cuma pengen diem aja, lo tetep ada. Kehadiran lo tuh bikin banyak hal terasa lebih ringan tanpa lo sadar.
+
+Dan jujur, salah satu hal yang paling gua suka dari pertemanan kita tuh karena kita bisa sebebas itu satu sama lain. Lo yang selalu jadi bahan bullyan/candaan kita, tapi gapernah baper lama malah jadi bagian paling lucu dan paling bikin nyaman dari circle ini.
+
+Tapi di balik semua candaan itu, gua harap lo tau kalau gua sayang banget sama lo, gua bener-bener nganggep lo spesial.
+
+Gua gak tau nanti ke depannya hidup bakal sesibuk apa, kita bakal sejauh apa, atau bakal sesusah apa buat ketemu kayak sekarang. Tapi gua harap satu hal gak berubah: kita.
+
+Gua harap lo tetep jadi orang yang ada di hidup gua, karena jujur gua gak kebayang kalau someday harus kehilangan friendship ini.
+
+Thank you for every laugh, every random conversation, every support, every presence, and every little thing you did for me.
+
+Makasih udah jadi rumah di saat banyak hal terasa capek.
+Makasih udah jadi Devita yang gua kenal selama ini.
+
+Please stay for a very, very long time ya? 🤍`;
+
+let i = 0;
+
+// animasi ketik
+function startTyping(){
+    let el=document.getElementById("text");
+
+    if(i < message.length){
+        el.innerHTML += message.charAt(i);
+        i++;
+        setTimeout(startTyping,25);
+    }else{
+        document.getElementById("stayBtn").style.display="inline-block";
+    }
+}
+
+// efek bunga + hati
+function showEffects(){
+
+    for(let i=0;i<40;i++){
+
+        let heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerHTML="💙";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.animationDuration=(3+Math.random()*3)+"s";
+        document.body.appendChild(heart);
+
+        let flower=document.createElement("div");
+        flower.className="flower";
+        flower.innerHTML="🩵";
+        flower.style.left=Math.random()*100+"vw";
+        flower.style.animationDuration=(4+Math.random()*3)+"s";
+        document.body.appendChild(flower);
+    }
+}
+
+// tombol akhir
+function showLove(){
+    document.getElementById("response").innerHTML =
+    "makasih udah selalu ada sejauh ini 🤍";
+}
+</script>
+
+</body>
+</html>
